@@ -39,14 +39,25 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
-  }
- 
- 
+ function Person(paramName, paramAge) {
+   this.name = paramName,
+   this.age = paramAge,
+   this.stomach = []
+ }
 
-  
-  
+  Person.prototype.eat = (someFood) =>{
+    if (this.stomach.length < 10){
+      this.stomach.push(someFood);
+    }
+  };
+
+  Person.prototype.poop = () =>{
+    this.stomach = [];
+  };
+
+  Person.prototype.toString = () =>{
+    `${this.name}, ${this.age}`;
+  };
   
   
   /*
@@ -63,8 +74,18 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(paramModel, paramMPG) {
+    this.model = paramModel,
+    this.milesPerGallon = paramMPG,
+    this.tank = 0,
+    this.odometer = 0,
+    this.fill = (gallons) =>{ // attach with prototype?
+      this.tank += gallons;
+    }
+    this.drive = (distance) =>{ // attach with prototype?
+      this.odometer += distance;
+      this.tank -= distance / this.milesPerGallon;
+    }
   }
   
   
@@ -75,18 +96,24 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name, age, favoriteToy) { // ?
+   Person.create(this, name, age); // ?
+   this.favoriteToy = favoriteToy; // ?
+   this.stomach = []; // ?
   }
+  Baby.prototype = Object.create(Person.prototype); // ?
+  // Baby.prototype.play = () =>{ // ?
+  //   `Playing with ${this.favoriteToy}`; // ?
+  // }
  
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. window binding - when it's not accessing a method it gives you basically the entirety of javascript - the "window" object.
+    2. implicit binding - the object before the dot that calls a function is implied to be "this"
+    3. new binding - when we use a constructor function "this" refers to the constructed function
+    4. explicit binding - when we .call or .apply constructor objects with new functions we can override how we set them
   */
   
   
