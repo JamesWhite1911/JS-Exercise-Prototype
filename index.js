@@ -39,25 +39,22 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person(paramName, paramAge) {
-   this.name = paramName,
-   this.age = paramAge,
-   this.stomach = []
- }
-
-  Person.prototype.eat = (someFood) =>{
+ function Person(name, age) {
+   this.name = name;
+   this.age = age;
+   this.stomach = [];
+  }
+  Person.prototype.eat = function(food){
     if (this.stomach.length < 10){
-      this.stomach.push(someFood);
+      return this.stomach.push(food);
     }
   };
-
-  Person.prototype.poop = () =>{
-    this.stomach = [];
+  Person.prototype.poop = function(){
+    return this.stomach = [];
   };
-
-  Person.prototype.toString = () =>{
-    `${this.name}, ${this.age}`;
-  };
+  Person.prototype.toString = function(){
+    return `${this.name}, ${this.age}`;
+  }
   
   
   /*
@@ -78,14 +75,14 @@ function Airplane(name) {
     this.model = paramModel,
     this.milesPerGallon = paramMPG,
     this.tank = 0,
-    this.odometer = 0,
-    this.fill = (gallons) =>{ // attach with prototype?
-      this.tank += gallons;
-    }
-    this.drive = (distance) =>{ // attach with prototype?
-      this.odometer += distance;
-      this.tank -= distance / this.milesPerGallon;
-    }
+    this.odometer = 0
+  }
+  Car.prototype.fill = function(gallons){ // attach with prototype?
+    return this.tank += gallons;
+  }
+  Car.prototype.drive = function(distance){ // attach with prototype?
+    this.odometer += distance;
+    return this.tank -= distance / this.milesPerGallon;
   }
   
   
@@ -96,15 +93,17 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby(name, age, favoriteToy) { // ?
-   Person.create(this, name, age); // ?
-   this.favoriteToy = favoriteToy; // ?
-   this.stomach = []; // ?
+ function Baby(name, age, toy) {
+   this.name = name;
+   this.age = age;
+   this.favoriteToy = toy;
   }
-  Baby.prototype = Object.create(Person.prototype); // ?
-  // Baby.prototype.play = () =>{ // ?
-  //   `Playing with ${this.favoriteToy}`; // ?
-  // }
+  
+  Baby.prototype = Object.create(Person.prototype);
+  
+  Baby.prototype.play = function(){
+    return `Playing with ${this.favoriteToy}`;
+  }
  
   
   /* 
